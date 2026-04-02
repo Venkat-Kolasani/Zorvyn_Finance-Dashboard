@@ -1,0 +1,26 @@
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin-left: 220px; /* Sidebar width */
+  transition: margin-left 0.3s ease-in-out;
+}
+
+.page-content {
+  flex: 1;
+  padding: 32px;
+  width: 100%;
+  max-width: 1200px; /* Optional: limit main content width on huge screens */
+  margin: 0 auto;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 767px) {
+  .page-wrapper {
+    margin-left: 0;
+  }
+  
+  .page-content {
+    padding: 16px;
+  }
+}
