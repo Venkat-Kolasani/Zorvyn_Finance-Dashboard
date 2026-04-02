@@ -1,0 +1,124 @@
+.spending-chart-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 24px;
+}
+
+.spending-chart-empty {
+  min-height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spending-chart-donut {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.donut-center-label {
+  fill: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 600;
+  text-anchor: middle;
+}
+
+.spending-tooltip {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.spending-tooltip-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.spending-tooltip-value {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--color-text);
+  font-size: 0.875rem;
+}
+
+.spending-chart-legend {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 260px;
+}
+
+.legend-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+}
+
+.legend-item-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+}
+
+.legend-color-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legend-label {
+  color: var(--color-text);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.legend-item-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.legend-amount {
+  font-family: var(--font-mono);
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.legend-percent {
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+  min-width: 36px;
+  text-align: right;
+}
+
+/* Responsive styles */
+@media (max-width: 767px) {
+  .spending-chart-container {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .spending-chart-legend {
+    max-width: 100%;
+    width: 100%;
+    padding: 0 16px;
+  }
+}
