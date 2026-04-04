@@ -89,7 +89,7 @@ export const BalanceTrendChart = () => {
             dataKey="income" 
             stroke={themeColors.income} 
             fill={themeColors.income} 
-            fillOpacity={0.2}
+            fillOpacity={0.15}
             strokeWidth={2}
             activeDot={{ r: 4, strokeWidth: 0, fill: themeColors.income }}
           />
@@ -98,7 +98,7 @@ export const BalanceTrendChart = () => {
             dataKey="expense" 
             stroke={themeColors.expense} 
             fill={themeColors.expense} 
-            fillOpacity={0.2}
+            fillOpacity={0.15}
             strokeWidth={2}
             activeDot={{ r: 4, strokeWidth: 0, fill: themeColors.expense }}
           />

@@ -66,7 +66,7 @@ export const SpendingChart = () => {
       const categoryMeta = getCategoryById(item.category);
       return {
         ...item,
-        label: categoryMeta ? categoryMeta.label : item.category,
+        label: categoryMeta ? categoryMeta.label : item.category.charAt(0).toUpperCase() + item.category.slice(1),
         color: categoryMeta && COLOR_MAP[categoryMeta.color] ? COLOR_MAP[categoryMeta.color] : COLOR_MAP.gray
       };
     });
@@ -91,7 +91,7 @@ export const SpendingChart = () => {
       <div className="spending-chart-donut">
         <ResponsiveContainer width="100%" height={240}>
           <RechartsPie>
-            <RechartsPie
+            <Pie
               data={chartData}
               dataKey="total"
               nameKey="label"
@@ -111,7 +111,7 @@ export const SpendingChart = () => {
                 position="center" 
                 className="donut-center-label"
               />
-            </RechartsPie>
+            </Pie>
             <RechartsTooltip content={<CustomTooltip />} />
           </RechartsPie>
         </ResponsiveContainer>
@@ -120,17 +120,13 @@ export const SpendingChart = () => {
       <div className="spending-chart-legend">
         {chartData.map((entry, index) => (
           <div key={index} className="legend-item">
-            <div className="legend-item-left">
-              <span 
-                className="legend-color-dot" 
-                style={{ backgroundColor: entry.color }}
-              />
-              <span className="legend-label">{entry.label}</span>
-            </div>
-            <div className="legend-item-right">
-              <span className="legend-amount">{formatCurrency(entry.total)}</span>
-              <span className="legend-percent">{formatPercent(entry.percent, 0)}</span>
-            </div>
+            <span 
+              className="legend-color-dot" 
+              style={{ backgroundColor: entry.color }}
+            />
+            <span className="legend-label">{entry.label}</span>
+            <span className="legend-amount">{formatCurrency(entry.total)}</span>
+            <span className="legend-percent">{formatPercent(entry.percent, 0)}</span>
           </div>
         ))}
       </div>
