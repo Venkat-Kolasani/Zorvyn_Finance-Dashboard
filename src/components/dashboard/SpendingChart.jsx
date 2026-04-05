@@ -4,7 +4,7 @@ import { PieChart as PieChartIcon } from 'lucide-react';
 import useFinanceStore from '../../store/useFinanceStore';
 import { getCategoryBreakdown } from '../../utils/calculations';
 import { getCategoryById } from '../../data/categories';
-import { formatCurrency, formatPercent } from '../../utils/formatters';
+import { formatChartAmount, formatCurrency, formatPercent } from '../../utils/formatters';
 import { EmptyState } from '../ui';
 import './SpendingChart.css';
 
@@ -87,21 +87,20 @@ export const SpendingChart = () => {
   }
 
   return (
-    <div className="spending-chart-container">
-      <div className="spending-chart-donut">
-        <ResponsiveContainer width="100%" height={240}>
-          <RechartsPie>
+    <div style={{ width: '100%', boxSizing: 'border-box', paddingRight: '20px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '24px', width: '100%', paddingRight: '16px' }}>
+        
+        <div style={{ flexShrink: 0, width: '180px', height: '180px' }}>
+          <RechartsPie width={180} height={180}>
             <Pie
               data={chartData}
               dataKey="total"
               nameKey="label"
-              cx="50%"
-              cy="50%"
-              innerRadius={60}
-              outerRadius={90}
-              stroke="var(--color-surface)"
-              strokeWidth={3}
-              paddingAngle={2}
+              cx={90}
+              cy={90}
+              innerRadius={55}
+              outerRadius={80}
+              strokeWidth={0}
             >
               {chartData.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={entry.color} />
@@ -114,21 +113,20 @@ export const SpendingChart = () => {
             </Pie>
             <RechartsTooltip content={<CustomTooltip />} />
           </RechartsPie>
-        </ResponsiveContainer>
-      </div>
-      
-      <div className="spending-chart-legend">
-        {chartData.map((entry, index) => (
-          <div key={index} className="legend-item">
-            <span 
-              className="legend-color-dot" 
-              style={{ backgroundColor: entry.color }}
-            />
-            <span className="legend-label">{entry.label}</span>
-            <span className="legend-amount">{formatCurrency(entry.total)}</span>
-            <span className="legend-percent">{formatPercent(entry.percent, 0)}</span>
-          </div>
-        ))}
+        </div>
+
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
+          {chartData.map((entry, index) => (
+            <div key={index} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ width: 10, height: 10, borderRadius: '50%', backgroundColor: entry.color, flexShrink: 0 }} />
+              <span className="legend-label" style={{ flex: 1 }}>{entry.label}</span>
+              <span className="legend-amount" style={{ fontVariantNumeric: 'tabular-nums' }}>
+                {formatChartAmount(entry.total)}
+              </span>
+            </div>
+          ))}
+        </div>
+
       </div>
     </div>
   );

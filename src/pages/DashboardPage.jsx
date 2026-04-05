@@ -33,7 +33,7 @@ const DashboardPage = () => {
             <BalanceTrendChart />
           </Card>
           
-          <Card className="dashboard-card chart-card-right">
+          <Card className="dashboard-card chart-card-right" style={{ overflow: 'visible' }}>
             <h3 className="dashboard-card-title">Spending Breakdown</h3>
             <SpendingChart />
           </Card>

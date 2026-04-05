@@ -1,64 +1,65 @@
 # Zorvyn Finance Dashboard
 
-This is a frontend-only finance dashboard app for viewing, filtering, and managing mock transaction data.
+A frontend-only finance dashboard for viewing, filtering, and managing mock transaction data.
 
 ## Tech stack
 
-The project uses React with Vite for the UI runtime and build tooling, React Router for page routing, Zustand for client-side state, Recharts for charts, date-fns for date handling, and Lucide React for icons. Styling is done with plain CSS modules/files in the component folders.
+React with Vite for the UI and build tooling, React Router for routing, Zustand for 
+client-side state, Recharts for charts, Tailwind CSS for styling, date-fns for date 
+handling, and Lucide React for icons. CSS custom properties handle theming across 
+light and dark mode.
 
 ## Setup
-
-From the project root, run:
-
 ```bash
 npm install
 npm run dev
 npm run build
 ```
 
-`npm run dev` starts the local development server. `npm run build` creates the production build in `dist`.
+`npm run dev` starts the local dev server. `npm run build` outputs to `dist`.
 
-## Feature walkthrough
+## Features
 
-### Overview page (`/`)
+### Overview (`/`)
+- Summary cards: net balance, total income, total expenses, savings rate
+- Balance trend chart (6 months) and spending breakdown by category
+- Recent transactions list
+- Skeleton loading state on mount
 
-- Shows summary cards for key totals.
-- Shows a balance trend chart and spending breakdown chart.
-- Shows recent transactions.
-- Uses a short skeleton/loading state before rendering the cards.
+### Transactions (`/transactions`)
+- Sortable table: date, description, category, type, amount
+- Search, category filter, type filter, and date range filter
+- Paginated at 10 rows per page
+- Admin only: add, edit, and delete transactions
 
-### Transactions page (`/transactions`)
+### Insights (`/insights`)
+- Top spending category, month-over-month change, income/expense ratio, 
+  largest transaction
+- Monthly income vs expense comparison chart
+- Empty state when no transaction data exists
 
-- Shows a transaction table with sorting by date, description, category, type, and amount.
-- Includes search, category/type filters, and date-range filtering.
-- Includes pagination (10 rows per page).
-- Admin-only actions: add transaction, edit transaction, and delete transaction.
+## Role switching
 
-### Insights page (`/insights`)
+Use the dropdown in the top navbar to switch between Viewer and Admin.
 
-- Shows calculated insight cards (top category, month-over-month change, income/expense ratio, largest transaction).
-- Shows a monthly comparison chart.
-- If no transactions exist, shows an empty state instead of charts/cards.
+- Viewer: read-only, no transaction controls visible
+- Admin: add/edit/delete actions appear in the transactions page
 
-## Role switching (Admin / Viewer)
+Role is persisted to localStorage and applies immediately on switch.
 
-Use the role dropdown in the top navbar (right side) to switch between `Viewer` and `Admin`.
+## Dark mode
 
-- `Viewer`: read-only access (no add/edit/delete transaction actions).
-- `Admin`: can add new transactions and edit/delete existing ones.
+Toggle via the sidebar. Preference is persisted to localStorage.
 
-This toggle updates client-side state only and applies immediately.
+## Assumptions
 
-## Assumptions made
+- All data is mock seed data bundled in the app
+- No backend, no auth, no database
+- Role switching is a UI state toggle only, not server-enforced
+- Transaction edits persist for the session but reset on page refresh
 
-- Data is mock seed data bundled in the frontend.
-- There is no backend API, no auth service, and no database.
-- Role switching is static and local (a UI/state toggle, not permissioned by a server).
-- Role and dark mode are persisted in local storage; transaction edits are in-memory for the current session.
+## What's missing
 
-## With more time
-
-- Add real authentication and server-side role enforcement.
-- Connect transactions to a backend with persistent storage.
-- Add tests (unit + integration) for store logic and page flows.
-- Add input-level validation/error states that mirror backend constraints.
+- Real auth and server-side role enforcement
+- Backend with persistent storage
+- Unit and integration tests for store logic and page interactions

@@ -1,10 +1,15 @@
+.spending-chart-wrapper {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 16px 16px 16px;
+  overflow: hidden;
+}
+
 .spending-chart-container {
   display: flex;
   align-items: center;
   width: 100%;
   gap: 24px;
-  min-width: 0;
-  overflow: hidden;
 }
 
 .spending-chart-empty {
@@ -57,20 +62,17 @@
 }
 
 .spending-chart-legend {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  min-width: 0;
+  gap: 10px;
   width: 100%;
 }
 
 .legend-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-  font-size: 0.875rem;
+  gap: 8px;
+  white-space: nowrap;
 }
 
 .legend-color-dot {
@@ -83,26 +85,13 @@
 .legend-label {
   color: var(--color-text);
   font-weight: 500;
-  white-space: nowrap;
-  width: 80px;
-  flex-shrink: 0;
 }
 
 .legend-amount {
   font-family: var(--font-mono);
   color: var(--color-text);
   font-weight: 600;
-  text-align: right;
-  white-space: nowrap;
-  width: 100px;
-}
-
-.legend-percent {
-  color: var(--color-text-muted);
-  font-variant-numeric: tabular-nums;
-  width: 40px;
-  text-align: right;
-  white-space: nowrap;
+  margin-left: auto;
 }
 
 /* Responsive styles */
@@ -119,13 +108,6 @@
   }
 
   .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 10px;
-  }
-
-  .legend-percent {
-    min-width: 36px;
+    gap: 8px;
   }
 }

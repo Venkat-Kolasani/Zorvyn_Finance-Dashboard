@@ -1,5 +1,12 @@
 import { format, parseISO } from 'date-fns';
 
+export const formatChartAmount = (n) =>
+  new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    maximumFractionDigits: 0
+  }).format(n);
+
 export const formatCurrency = (amount, currency = 'INR') => {
   const value = Number(amount) || 0;
 

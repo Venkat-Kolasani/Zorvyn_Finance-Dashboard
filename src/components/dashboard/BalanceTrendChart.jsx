@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   AreaChart,
   Area,
@@ -41,29 +41,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 
 export const BalanceTrendChart = () => {
   const transactions = useFinanceStore((state) => state.transactions);
-  const darkMode = useFinanceStore((state) => state.darkMode);
   const data = getMonthlyData(transactions);
-  
-  const [themeColors, setThemeColors] = useState({
-    income: 'var(--color-income)',
-    expense: 'var(--color-expense)',
-    textMuted: 'var(--color-text-muted)'
-  });
-
-  useEffect(() => {
-    const updateColors = () => {
-      const rootStyle = getComputedStyle(document.documentElement);
-      setThemeColors({
-        income: rootStyle.getPropertyValue('--color-income').trim() || 'var(--color-income)',
-        expense: rootStyle.getPropertyValue('--color-expense').trim() || 'var(--color-expense)',
-        textMuted: rootStyle.getPropertyValue('--color-text-muted').trim() || 'var(--color-text-muted)'
-      });
-    };
-
-    updateColors();
-    const timer = setTimeout(updateColors, 50);
-    return () => clearTimeout(timer);
-  }, [darkMode]);
 
   return (
     <div className="balance-trend-chart-container">
@@ -76,31 +54,31 @@ export const BalanceTrendChart = () => {
             dataKey="month" 
             axisLine={false} 
             tickLine={false} 
-            tick={{ fill: themeColors.textMuted, fontSize: 13, fontFamily: 'inherit' }}
+            tick={{ fill: '#94a3b8', fontSize: 13, fontFamily: 'inherit' }}
             dy={10}
           />
           <YAxis hide={true} />
           <Tooltip 
             content={<CustomTooltip />} 
-            cursor={{ stroke: themeColors.textMuted, strokeDasharray: '3 3', opacity: 0.5 }} 
+            cursor={{ stroke: '#94a3b8', strokeDasharray: '3 3', opacity: 0.5 }} 
           />
           <Area 
             type="monotone" 
             dataKey="income" 
-            stroke={themeColors.income} 
-            fill={themeColors.income} 
-            fillOpacity={0.15}
+            stroke="#4ade80"
+            fill="#4ade80"
+            fillOpacity={0.2}
             strokeWidth={2}
-            activeDot={{ r: 4, strokeWidth: 0, fill: themeColors.income }}
+            activeDot={{ r: 4, strokeWidth: 0, fill: '#4ade80' }}
           />
           <Area 
             type="monotone" 
             dataKey="expense" 
-            stroke={themeColors.expense} 
-            fill={themeColors.expense} 
-            fillOpacity={0.15}
+            stroke="#f87171"
+            fill="#f87171"
+            fillOpacity={0.2}
             strokeWidth={2}
-            activeDot={{ r: 4, strokeWidth: 0, fill: themeColors.expense }}
+            activeDot={{ r: 4, strokeWidth: 0, fill: '#f87171' }}
           />
         </AreaChart>
       </ResponsiveContainer>
