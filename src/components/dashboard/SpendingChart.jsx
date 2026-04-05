@@ -106,7 +106,7 @@ export const SpendingChart = () => {
                 <Cell key={`cell-${index}`} fill={entry.color} />
               ))}
               <Label 
-                value={formatCurrency(totalExpenses)} 
+                value={formatChartAmount(totalExpenses)} 
                 position="center" 
                 className="donut-center-label"
               />
