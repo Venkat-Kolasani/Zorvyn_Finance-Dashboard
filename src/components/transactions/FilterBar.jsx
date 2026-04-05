@@ -11,6 +11,8 @@ export const FilterBar = () => {
   const resetFilters = useFinanceStore((state) => state.resetFilters);
 
   const [localSearch, setLocalSearch] = useState(filters.search || '');
+  const [localDateStart, setLocalDateStart] = useState(filters.dateRange?.start || '');
+  const [localDateEnd, setLocalDateEnd] = useState(filters.dateRange?.end || '');
   const searchTimerRef = useRef(null);
 
   useEffect(() => {
@@ -39,13 +41,26 @@ export const FilterBar = () => {
     }
 
     setLocalSearch('');
+    setLocalDateStart('');
+    setLocalDateEnd('');
     resetFilters();
+  };
+
+  const handleDateChange = (start, end) => {
+    setLocalDateStart(start);
+    setLocalDateEnd(end);
+    setFilter('dateRange', { 
+      start: start || null, 
+      end: end || null 
+    });
   };
 
   const hasActiveFilters =
     filters.search !== '' ||
     filters.category !== 'all' ||
-    filters.type !== 'all';
+    filters.type !== 'all' ||
+    filters.dateRange?.start !== null ||
+    filters.dateRange?.end !== null;
 
   return (
     <div className="filter-bar">
@@ -83,6 +98,22 @@ export const FilterBar = () => {
           <option value="income">Income</option>
           <option value="expense">Expense</option>
         </select>
+
+        <input 
+          type="date" 
+          className="filter-input"
+          placeholder="From" 
+          value={localDateStart}
+          onChange={(e) => handleDateChange(e.target.value, localDateEnd)}
+        />
+        
+        <input 
+          type="date" 
+          className="filter-input"
+          placeholder="To" 
+          value={localDateEnd}
+          onChange={(e) => handleDateChange(localDateStart, e.target.value)}
+        />
 
         {hasActiveFilters && (
           <Button

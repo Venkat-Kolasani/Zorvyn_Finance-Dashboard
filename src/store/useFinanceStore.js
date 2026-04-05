@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { TRANSACTIONS } from '../data/transactions.js';
+import { parseISO, isWithinInterval, startOfDay, endOfDay } from 'date-fns';
 
 const normalizeText = (value) => String(value ?? '').trim().toLowerCase();
 
@@ -47,10 +48,26 @@ const applyFilters = (transactions, filters, sort) => {
     .filter((transaction) => filters.type === 'all' || transaction.type === filters.type)
     .filter((transaction) => {
       const { start, end } = filters.dateRange || {};
-      const transactionDate = new Date(transaction.date).getTime();
+      if (!start && !end) return true;
 
-      if (start && transactionDate < new Date(start).getTime()) return false;
-      if (end && transactionDate > new Date(end).getTime()) return false;
+      const transactionDate = parseISO(transaction.date);
+      if (Number.isNaN(transactionDate.getTime())) return false;
+
+      if (start && end) {
+        return isWithinInterval(transactionDate, {
+          start: startOfDay(parseISO(start)),
+          end: endOfDay(parseISO(end))
+        });
+      }
+
+      if (start) {
+        return transactionDate >= startOfDay(parseISO(start));
+      }
+
+      if (end) {
+        return transactionDate <= endOfDay(parseISO(end));
+      }
+
       return true;
     });
 
